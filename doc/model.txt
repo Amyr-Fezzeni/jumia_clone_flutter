@@ -1,0 +1,19 @@
+id
+name product
+prix initial
+prix avec remise (true/false)  / % remise
+liste d'images
+rating product
+details
+// fiche technique
+	caractéristique
+		liste "mode d'utilisation"
+		liste de carectéristique
+	package
+	decriptif technique
+		code
+		gamme de produit
+		modele
+		taille(longeur x largeur x hauteur mm)
+		poids(kg)
+		couleur
