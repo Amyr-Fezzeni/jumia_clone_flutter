@@ -10,7 +10,7 @@ class Product {
    late final String details;
    late final String ficheTechnique;
    late final List<dynamic> descriptifTechnique;
-   late final List<dynamic> category;
+   late final List<String> category;
 
   Product(data) {
     id = data['id'];

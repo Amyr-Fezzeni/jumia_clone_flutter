@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jumia/Pages/search.dart';
 import 'package:jumia/classes/product.dart';
 import 'package:jumia/costum%20widgets/product_info.dart';
 import 'package:jumia/provider.dart/provider_products.dart';
@@ -48,7 +49,11 @@ class _NewProductSectionState extends State<NewProductSection> {
                             width: 145,
                             child: ListTile(
                               onTap: () {
-                                print('next');
+                                context.read<ProviderProducts>().refreshData();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const Search()));
+
                               },
                               trailing: const Icon(
                                 Icons.arrow_forward_ios_sharp,

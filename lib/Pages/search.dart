@@ -19,9 +19,16 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search>{
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    List<Product> data = context.watch<ProviderProducts>().data;
+
+    List<Product> data = context.watch<ProviderProducts>().filtered;
     return Scaffold(
       body: ListView(
         children:  [
@@ -47,6 +54,7 @@ class _SearchState extends State<Search>{
                                   onTap: ()  {
                                     String key = context.read<ProviderProducts>().Categ[index][1];
                                     context.read<ProviderProducts>().setValueSelected(key);
+                                    context.read<ProviderProducts>().filterProduct(key);
                                     setState(() {});
                                   },
                                   title: Text("${context.watch<ProviderProducts>().Categ[index][1]}"),
@@ -68,7 +76,11 @@ class _SearchState extends State<Search>{
                                                     margin: EdgeInsets.symmetric(horizontal: 10),
                                                     child: ListTile(
 
-                                                      onTap: (){},
+                                                      onTap: (){
+                                                        String key = context.read<ProviderProducts>().category[context.read<ProviderProducts>().Categ[index][1]]![i];
+                                                        context.read<ProviderProducts>().filterSubProduct(key);
+                                                        setState(() {});
+                                                      },
                                                       title: Text(context.watch<ProviderProducts>().category[context.watch<ProviderProducts>().Categ[index][1]]![i],
                                                       style: GoogleFonts.nunito(
                                                         fontSize: 12,
@@ -107,6 +119,7 @@ class _SearchState extends State<Search>{
               ],
             ),
           ),
+         const SizedBox(height: 100,),
          const FooterPage(),
         ],
       ),

@@ -3,7 +3,9 @@ import 'package:jumia/Pages/home_page.dart';
 import 'package:jumia/Pages/search.dart';
 import 'package:jumia/Pages/singin.dart';
 import 'package:jumia/classes/product.dart';
+import 'package:jumia/provider.dart/provider_products.dart';
 import 'package:jumia/services.dart/services.dart';
+import 'package:provider/src/provider.dart';
 
 class AppBarCustom extends StatelessWidget {
   const AppBarCustom({Key? key}) : super(key: key);
@@ -93,7 +95,7 @@ class AppBarCustom extends StatelessWidget {
                     color: Colors.orange,
                     child: const Text(" RECHERCHER "),
                     onPressed: () async {
-
+                      context.read<ProviderProducts>().refreshData();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const Search()));

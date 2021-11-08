@@ -7,14 +7,12 @@ class ProviderProducts with ChangeNotifier {
   List<Product> data = [];
   List<Product> best_data = [];
   List<Product> new_data = [];
+  List<Product> filtered = [];
   List<dynamic> Categ = const [
                             [Icon(Icons.shopping_bag_outlined, size: 16,),"Superette"],
                             [Icon(Icons.house_sharp,size: 16,), "Maison & Bureau"],
                             [Icon(Icons.volunteer_activism,size: 16,),"Santé & Beauté"],
-                            [Icon(
-                                Icons.phone_android,
-                                size: 16,
-                              ),"Téléphone & Tablette"],
+                            [Icon(Icons.phone_android,size: 16,),"Téléphone & Tablette"],
                             [Icon(
                                 Icons.accessibility,
                                 size: 16,
@@ -146,7 +144,9 @@ class ProviderProducts with ChangeNotifier {
 
   Future getAllProduct() async {
     data = await Service.getData();
+    filtered = data;
     newOffre();
+    filterBestOffres();
     notifyListeners();
   }
 
@@ -161,5 +161,54 @@ class ProviderProducts with ChangeNotifier {
     notifyListeners();
 }
 
-  
+  filterProduct(key){
+    filtered = [];
+    for (var product in data){
+        if (product.category[1].toLowerCase() == key.toLowerCase()){
+          filtered.add(product);
+        }
+    }
+    notifyListeners();
+  }
+
+  filterSubProduct(key){
+    filtered = [];
+    for (var product in data){
+      if (product.category[2].toLowerCase() == key.toLowerCase()){
+        filtered.add(product);
+      }
+    }
+    notifyListeners();
+  }
+  refreshData(){
+    filtered = data;
+    notifyListeners();
+  }
+
+  filterBestOffres(){
+      int toInt(String s){
+        int e = 0;
+        try{
+          e = int.parse(s.substring(0,s.length-1));
+        } on Exception catch (e){
+          print(e);
+          print(s);
+        }
+
+        return e;
+      }
+
+    for (var product in data){
+      if (toInt(product.saved) > 70){
+        best_data.add(product);
+      }
+    }
+    notifyListeners();
+
+
+  }
+
+
+
+
 }
